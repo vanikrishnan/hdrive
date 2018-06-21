@@ -1,22 +1,48 @@
-<form [formGroup]="eventregister">
-  <div>
-    <label for="eventname">Name</label>
-    <input type="text" formControlName="eventname">    
-  </div>
-  <div>
-    <label for="eventdate">Date</label>
-    <input type="date" formControlName="eventdate">
-  </div>
-  <div>
-    <label for="starttime">Start Time</label>
-    <input type="text" formControlName="starttime">
-  </div>
-  <div>
-    <label for="endtime">End Time</label>
-    <input type="text" formControlName="endtime">
-  </div>
-  <div>
-    <label for="location">Location</label>
-      
-  </div>
-</form>
+<div class="container">
+  <form class="form-group" [formGroup]="eventregister">
+    <div>
+      <label for="eventname">Name</label>
+      <input type="text" class="form-control" formControlName="eventname"> 
+      <div  *ngIf="eventname.touched && eventname.invalid">
+        <div class="alert alert-danger" *ngIf="eventname.errors.required">
+          event name is required
+        </div>
+        <div class="alert alert-danger" *ngIf="eventname.errors.maxlength">
+          Event name maximum consist of {{eventname.errors.maxlength.requiredLength}} letters
+        </div>
+        <div class="alert alert-danger" *ngIf="eventname.errors.minlength">
+            Event name minimum consist of {{eventname.errors.maxlength.requiredLength}} letters          
+        </div>
+      </div>   
+    </div>
+    <div>
+      <label for="eventdate">Date</label>
+      <input type="date" class="form-control" formControlName="eventdate">
+      <div  *ngIf="eventdate.touched && eventdate.invalid">
+        <div class="alert alert-danger" *ngIf="eventdate.errors?.datevalidate">
+          Event date must be a future one
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="starttime">Start Time</label>
+      <input type="text" class="form-control" formControlName="starttime">
+    </div>
+    <div>
+      <label for="endtime">End Time</label>
+      <input type="text" class="form-control" formControlName="endtime">
+    </div>
+    <div>
+      <label for="se">select</label>
+        <select class="selectpicker" multiple data-max-options="2">
+            <option>Mustard</option>
+            <option>Ketchup</option>
+            <option>Relish</option>
+        </select>          
+    </div>
+    <div>
+      <label for="skill">skill</label>
+      <input type="text" class="form-control" name="skill" formControlName="skill">
+    </div>
+  </form>
+</div>
