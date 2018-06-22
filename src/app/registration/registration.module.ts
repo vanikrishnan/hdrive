@@ -7,7 +7,7 @@ import {route} from './routes';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(route)
+    RouterModule.forChild(route)
   ],
   declarations: [LandingpageComponent]
 })
