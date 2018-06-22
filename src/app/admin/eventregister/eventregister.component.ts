@@ -12,18 +12,30 @@ export class EventregisterComponent implements OnInit {
   currentDate;
   eventregister;
   todaydate;
+  skills = ['java' , 'angular' , 'react' , 'nodeJS' ];
+  location = ['chennai', 'hyderabadh' , 'pune' , 'Bangalore' ];
   constructor() {
     const today = new Date();
     this.currentYear = today.getFullYear();
-    this.currentMonth = today.getMonth();
+    this.currentMonth = today.getMonth() + 1;
+    if ( this.currentMonth < 10) {
+      this.currentMonth = '0' + this.currentMonth;
+    }
     this.currentDate = today.getDate();
+    if ( this.currentDate < 10) {
+      this.currentDate = '0' + this.currentDate;
+    }
     this.todaydate = this.currentYear + '-' + this.currentMonth + '-' + this.currentDate;
-    console.log(this.todaydate);
+    // console.log(this.todaydate);
     this.eventregister = new FormGroup({
       'eventname' :
       new FormControl('', [Validators.required , Validators.maxLength(15) , Validators.minLength(5)]),
       'eventdate' :
-      new FormControl( '1997-02-23', CustomValidator.datevalidate )
+      new FormControl( this.todaydate, CustomValidator.datevalidate ),
+      'timecheck': new FormGroup({
+      'starttime' : new FormControl('', [Validators.required ]),
+      'endtime' : new FormControl('', [Validators.required ]),
+      }, CustomValidator.validatedate),
     });
    }
 
@@ -34,5 +46,17 @@ export class EventregisterComponent implements OnInit {
   }
   get eventdate() {
     return this.eventregister.get('eventdate');
+  }
+  get timecheck() {
+    return this.eventregister.get('timecheck');
+  }
+  get starttime() {
+    return this.timecheck.get('starttime');
+  }
+  get endtime() {
+    return this.timecheck.get('endtime');
+  }
+  checkform() {
+    console.log(this.eventregister);
   }
 }
